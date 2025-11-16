@@ -16,7 +16,3 @@ variable "cloudflare_api_token" {
 variable "cloudflare_account_id" {
   type = string
 }
-
-variable "ssh_public_key" {
-  type = string
-}
