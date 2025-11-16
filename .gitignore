@@ -38,3 +38,9 @@ terraform.rc
 
 **/*.xz
 *env*
+
+.ignore/
+
+# Save the configs to files
+tofu output --raw kubeconfig > ./kubeconfig
+tofu output --raw talosconfig > ./talosconfig
