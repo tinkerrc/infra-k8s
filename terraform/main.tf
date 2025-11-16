@@ -1,6 +1,7 @@
 locals {
   domain           = "zhenkai.dev"
   cluster_api_host = "kube.${local.domain}"
+  cluster_domain   = "cluster.${local.domain}.local"
   current_ipv4     = "${chomp(data.http.current_ipv4.response_body)}/32"
 }
 
@@ -27,7 +28,7 @@ module "talos" {
   hcloud_token    = var.hcloud_token
 
   cluster_name     = local.domain
-  cluster_domain   = "cluster.${local.domain}.local"
+  cluster_domain   = local.cluster_domain
   cluster_api_host = local.cluster_api_host
 
   firewall_use_current_ip   = false
@@ -55,6 +56,7 @@ module "talos" {
 resource "flux_bootstrap_git" "this" {
   embedded_manifests = true
   path               = "clusters/${local.domain}"
+  cluster_domain     = local.cluster_domain
   components_extra = [
     "image-reflector-controller", "image-automation-controller", "source-watcher"
   ]
