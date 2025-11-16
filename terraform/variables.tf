@@ -28,3 +28,8 @@ variable "github_repository" {
   type    = string
   default = "infra-k8s"
 }
+
+variable "github_token" {
+  type      = string
+  sensitive = true
+}
