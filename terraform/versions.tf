@@ -23,6 +23,11 @@ terraform {
       source  = "hashicorp/http"
       version = ">= 3.5.0"
     }
+
+    flux = {
+      source  = "fluxcd/flux"
+      version = "1.7.4"
+    }
   }
 
 }

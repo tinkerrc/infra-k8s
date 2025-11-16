@@ -51,3 +51,8 @@ module "talos" {
     auth_key = var.tailscale_auth_key
   }
 }
+
+resource "flux_bootstrap_git" "this" {
+  embedded_manifests = true
+  path               = "clusters/${local.domain}"
+}
