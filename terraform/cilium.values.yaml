@@ -1,0 +1,52 @@
+loadBalancer:
+  acceleration: "best-effort"
+socketLB:
+  hostNamespaceOnly: true
+
+operator:
+  replicas: 2
+  prometheus:
+    serviceMonitor:
+      enabled: true
+ipam:
+  mode: kubernetes
+routingMode: native
+ipv4NativeRoutingCIDR: ${pod_ipv4_cidr}
+kubeProxyReplacement: true
+bpf:
+  masquerade: false
+encryption:
+  enabled: true
+  type: wireguard
+securityContext:
+  capabilities:
+    ciliumAgent:
+      - CHOWN
+      - KILL
+      - NET_ADMIN
+      - NET_RAW
+      - IPC_LOCK
+      - SYS_ADMIN
+      - SYS_RESOURCE
+      - DAC_OVERRIDE
+      - FOWNER
+      - SETGID
+      - SETUID
+    cleanCiliumState:
+      - NET_ADMIN
+      - SYS_ADMIN
+      - SYS_RESOURCE
+hubble:
+  enabled: false
+  relay:
+    enabled: false
+cgroup:
+  autoMount:
+    enabled: false
+  hostRoot: /sys/fs/cgroup
+k8sServiceHost: 127.0.0.1
+k8sServicePort: 7445
+prometheus:
+  serviceMonitor:
+    enabled: true
+    trustCRDsExist: true

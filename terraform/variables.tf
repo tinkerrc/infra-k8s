@@ -42,5 +42,5 @@ variable "domain" {
 
 variable "enable_tailscale_extension" {
   type    = bool
-  default = false
+  default = true
 }

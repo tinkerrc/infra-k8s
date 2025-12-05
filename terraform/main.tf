@@ -3,6 +3,7 @@ locals {
   cluster_api_host = "kube.${local.domain}"
   cluster_domain   = "cluster.${local.domain}.local"
   current_ipv4     = "${chomp(data.http.current_ipv4.response_body)}/32"
+  pod_ipv4_cidr    = "10.0.16.0/20"
 }
 
 data "http" "current_ipv4" {
@@ -44,7 +45,7 @@ module "talos" {
   enable_ipv6        = false
   network_ipv4_cidr  = "10.0.0.0/16"
   node_ipv4_cidr     = "10.0.1.0/24"
-  pod_ipv4_cidr      = "10.0.16.0/20"
+  pod_ipv4_cidr      = local.pod_ipv4_cidr
   service_ipv4_cidr  = "10.0.8.0/21"
 
   kubelet_extra_args = {
@@ -58,6 +59,10 @@ module "talos" {
     "https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/main/deploy/standalone-install.yaml",
     "kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/high-availability-1.21+.yaml"
   ]
+
+  cilium_values = [templatefile("./cilium.values.yaml", {
+    pod_ipv4_cidr = local.pod_ipv4_cidr
+  })]
 
   tailscale = {
     # This seems to only work at bootstrap-time
