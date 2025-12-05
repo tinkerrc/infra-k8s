@@ -2,10 +2,10 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - tailscale.yaml
-secretGenerator:
-  - name: operator-oauth
-    namespace: tailscale
-    envs:
-      # See format here: https://github.com/tailscale/tailscale/blob/main/cmd/k8s-operator/deploy/chart/templates/oauth-secret.yaml
-      # See oauth secret scopes here: https://tailscale.com/kb/1236/kubernetes-operator#prerequisites
-      - .env.tailscale
+# secretGenerator:
+#   - name: operator-oauth
+#     namespace: tailscale
+#     envs:
+#       # See format here: https://github.com/tailscale/tailscale/blob/main/cmd/k8s-operator/deploy/chart/templates/oauth-secret.yaml
+#       # See oauth secret scopes here: https://tailscale.com/kb/1236/kubernetes-operator#prerequisites
+#       - .env.tailscale
