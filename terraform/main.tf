@@ -60,7 +60,8 @@ module "talos" {
   ]
 
   tailscale = {
-    enabled  = true
+    # This seems to only work at bootstrap-time
+    enabled  = var.enable_tailscale_extension
     auth_key = var.tailscale_auth_key
   }
 }

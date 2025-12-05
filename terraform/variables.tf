@@ -6,6 +6,7 @@ variable "hcloud_token" {
 variable "tailscale_auth_key" {
   type        = string
   sensitive   = true
+  default     = null
   description = "Tailscale auth key used to setup new devices"
 }
 
@@ -37,4 +38,9 @@ variable "github_token" {
 variable "domain" {
   type    = string
   default = "zhenkai.dev"
+}
+
+variable "enable_tailscale_extension" {
+  type    = bool
+  default = false
 }
