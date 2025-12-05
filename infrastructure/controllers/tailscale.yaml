@@ -5,6 +5,7 @@ metadata:
   name: tailscale
   labels:
     toolkit.fluxcd.io/tenant: infra
+    pod-security.kubernetes.io/enforce: privileged
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
