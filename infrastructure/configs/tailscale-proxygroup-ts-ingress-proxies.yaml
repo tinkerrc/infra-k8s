@@ -2,5 +2,6 @@ apiVersion: tailscale.com/v1alpha1
 kind: ProxyGroup
 metadata:
   name: ingress-proxies
+  namespace: tailscale
 spec:
   type: ingress
