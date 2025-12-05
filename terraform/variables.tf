@@ -33,3 +33,8 @@ variable "github_token" {
   type      = string
   sensitive = true
 }
+
+variable "domain" {
+  type    = string
+  default = "zhenkai.dev"
+}

@@ -1,5 +1,5 @@
 locals {
-  domain           = "zhenkai.dev"
+  domain           = var.domain
   cluster_api_host = "kube.${local.domain}"
   cluster_domain   = "cluster.${local.domain}.local"
   current_ipv4     = "${chomp(data.http.current_ipv4.response_body)}/32"
@@ -46,6 +46,18 @@ module "talos" {
   node_ipv4_cidr     = "10.0.1.0/24"
   pod_ipv4_cidr      = "10.0.16.0/20"
   service_ipv4_cidr  = "10.0.8.0/21"
+
+  kubelet_extra_args = {
+    # https://docs.siderolabs.com/kubernetes-guides/monitoring-and-observability/deploy-metrics-server
+    "rotate-server-certificates" : true
+  }
+
+  extraManifests = [
+    # Metrics Server API
+    # You may need to use kubectl -f <url> on existing clusters
+    "https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/main/deploy/standalone-install.yaml",
+    "kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/high-availability-1.21+.yaml"
+  ]
 
   tailscale = {
     enabled  = true
