@@ -57,7 +57,7 @@ module "talos" {
     # Metrics Server API
     # You may need to use kubectl -f <url> on existing clusters
     "https://raw.githubusercontent.com/alex1989hu/kubelet-serving-cert-approver/main/deploy/standalone-install.yaml",
-    "kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/high-availability-1.21+.yaml"
+    "https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/high-availability-1.21+.yaml"
   ]
 
   cilium_values = [templatefile("./cilium.values.yaml", {
