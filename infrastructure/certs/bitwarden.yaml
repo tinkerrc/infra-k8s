@@ -68,7 +68,7 @@ spec:
 apiVersion: trust.cert-manager.io/v1alpha1
 kind: Bundle
 metadata:
-  name: bitwarden-tls-bundle # The bundle name will also be used for the target
+  name: bitwarden-tls-bundle
 spec:
   sources:
     - useDefaultCAs: true
