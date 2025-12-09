@@ -56,3 +56,17 @@ spec:
                 - create
                 - update
                 - delete
+    admissionController:
+      rbac:
+        clusterRole:
+          extraResources:
+            - apiGroups:
+                - ""
+              resources:
+                - secrets
+              resourceNames:
+                - "bitwarden-tls-certs"
+              verbs:
+                - get
+                - list
+                - watch
