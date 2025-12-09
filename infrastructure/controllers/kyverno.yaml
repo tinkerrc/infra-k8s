@@ -47,8 +47,6 @@ spec:
                 - ""
               resources:
                 - secrets
-              resourceNames:
-                - "bitwarden-tls-certs"
               verbs:
                 - get
                 - list
@@ -64,8 +62,6 @@ spec:
                 - ""
               resources:
                 - secrets
-              resourceNames:
-                - "bitwarden-tls-certs"
               verbs:
                 - get
                 - list
