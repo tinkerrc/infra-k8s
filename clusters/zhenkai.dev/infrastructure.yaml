@@ -1,3 +1,4 @@
+# TODO: customize interval/retryInterval/timeout
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -18,11 +19,95 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: infra-configs
+  name: infra-certs
   namespace: flux-system
 spec:
   dependsOn:
     - name: infra-controllers
+  interval: 1h
+  retryInterval: 2m
+  timeout: 5m
+  sourceRef:
+    kind: ExternalArtifact
+    name: infrastructure
+  path: ./certs
+  prune: true
+  wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: infra-policies
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: infra-certs
+  interval: 1h
+  retryInterval: 2m
+  timeout: 5m
+  sourceRef:
+    kind: ExternalArtifact
+    name: infrastructure
+  path: ./policies
+  prune: true
+  wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: infra-external-secrets-operator
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: infra-policies
+  interval: 1h
+  retryInterval: 2m
+  timeout: 5m
+  sourceRef:
+    kind: ExternalArtifact
+    name: infrastructure
+  path: ./external-secrets-operator
+  prune: true
+  wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: infra-external-secrets
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: infra-external-secrets-operator
+  interval: 10m
+  path: ./external-secrets
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: infra-tailscale
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: infra-external-secrets
+  interval: 10m
+  path: ./tailscale
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: infra-configs
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: infra-tailscale
   interval: 1h
   retryInterval: 2m
   timeout: 5m

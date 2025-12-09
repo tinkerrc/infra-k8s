@@ -1,28 +1,23 @@
 ---
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: tailscale
-  labels:
-    toolkit.fluxcd.io/tenant: infra
-    pod-security.kubernetes.io/enforce: privileged
----
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: tailscale
-  namespace: tailscale
+  name: trust-manager
+  namespace: cert-manager
 spec:
+  type: oci
   interval: 24h
-  url: https://pkgs.tailscale.com/helmcharts
+  url: oci://quay.io/jetstack/charts/trust-manager
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: tailscale
-  namespace: tailscale
+  name: trust-manager
+  namespace: cert-manager
 spec:
   interval: 12h
+  dependsOn:
+    - name: cert-manager
   install:
     strategy:
       name: RetryOnFailure
@@ -33,10 +28,10 @@ spec:
       retryInterval: 3m
   chart:
     spec:
-      chart: tailscale-operator
+      chart: trust-manager
       version: "*"
       sourceRef:
         kind: HelmRepository
-        name: tailscale
-        namespace: tailscale
+        name: trust-manager
+        namespace: cert-manager
       interval: 12h

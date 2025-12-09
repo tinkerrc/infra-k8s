@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - tailscale.yaml
+# Use kubectl create secret generic --from-env-file=./infrastructure/controllers/.env.tailscale --type=Opaque operator-oauth -n tailscale
+# See format here: https://github.com/tailscale/tailscale/blob/main/cmd/k8s-operator/deploy/chart/templates/oauth-secret.yaml
+# See oauth secret scopes here: https://tailscale.com/kb/1236/kubernetes-operator#prerequisites
+
+# .env.tailscale should contain:
+# client_id=
+# client_secret=
+
+# Cannot use secretGenerator because we can't upload the .env.tailscale
+# secretGenerator:
+#   - name: operator-oauth
+#     namespace: tailscale
+#     envs:
+#       - .env.tailscale
