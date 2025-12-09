@@ -78,12 +78,15 @@ metadata:
 spec:
   dependsOn:
     - name: infra-external-secrets-operator
-  interval: 10m
+  interval: 1h
+  retryInterval: 2m
+  timeout: 5m
+  sourceRef:
+    kind: ExternalArtifact
+    name: infrastructure
   path: ./external-secrets
   prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -93,12 +96,15 @@ metadata:
 spec:
   dependsOn:
     - name: infra-external-secrets
-  interval: 10m
+  interval: 1h
+  retryInterval: 2m
+  timeout: 5m
+  sourceRef:
+    kind: ExternalArtifact
+    name: infrastructure
   path: ./tailscale
   prune: true
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
