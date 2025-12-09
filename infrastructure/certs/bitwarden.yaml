@@ -116,21 +116,3 @@ spec:
         clone:
           namespace: cert-manager
           name: bitwarden-tls-certs
-  values:
-    backgroundController:
-      rbac:
-        clusterRole:
-          extraResources:
-            - apiGroups:
-                - ""
-              resources:
-                - secrets
-              resourceNames:
-                - "bitwarden-tls-certs"
-              verbs:
-                - get
-                - list
-                - watch
-                - create
-                - update
-                - delete

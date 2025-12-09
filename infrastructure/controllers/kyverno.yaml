@@ -38,3 +38,21 @@ spec:
         name: kyverno
         namespace: kyverno
       interval: 12h
+  values:
+    backgroundController:
+      rbac:
+        clusterRole:
+          extraResources:
+            - apiGroups:
+                - ""
+              resources:
+                - secrets
+              resourceNames:
+                - "bitwarden-tls-certs"
+              verbs:
+                - get
+                - list
+                - watch
+                - create
+                - update
+                - delete
