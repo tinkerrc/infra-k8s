@@ -1,0 +1,11 @@
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: media-storage-class
+provisioner: rclone.csi.veloxpack.io
+parameters:
+  csi.storage.k8s.io/node-publish-secret-name: "media-storage-csi"
+  csi.storage.k8s.io/node-publish-secret-namespace: "external-secrets"
+reclaimPolicy: Retain
+volumeBindingMode: Immediate

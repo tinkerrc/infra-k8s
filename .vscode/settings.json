@@ -1,5 +1,6 @@
 {
 	"yaml.schemas": {
-		"https://www.schemastore.org/kustomization.json": "file:///home/illogic/git/infra-k8s/infrastructure/policies/kustomization.yaml"
+		"https://www.schemastore.org/kustomization.json": "file:///home/illogic/git/infra-k8s/infrastructure/policies/kustomization.yaml",
+		"kubernetes://schema/storage.k8s.io/v1@storageclass": "file:///home/illogic/git/infra-k8s/infrastructure/configs/storageclass-media-storage.yaml"
 	}
 }

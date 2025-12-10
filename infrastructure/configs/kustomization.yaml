@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - tailscale-proxygroup-ingress-proxies.yaml
   - tailscale-proxygroup-egress-proxies.yaml
+  - storageclass-media-storage.yaml
